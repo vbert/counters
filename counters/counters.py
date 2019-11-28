@@ -19,11 +19,11 @@ def get_src_readings():
 def main():
     # declare variable for system arguments list
     sys_args = sys.argv
-
+    print(sys_args)
     # remove Python script name from args list
     sys_args.pop(0)
-
-    path_src = sys_args[1]
+    print(sys_args)
+    #path_src = sys_args[1]
 
 
 # have interpreter call the main() func
