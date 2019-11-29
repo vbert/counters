@@ -1,29 +1,27 @@
 # -*- coding: utf-8 -*-
-
 import sys
+from config import path_to_readings
 
 # System arguments passed to script
 # arg[0] - script name,
 # arg[1] - full path for source file with meter readings
-try:
-    PATH_SRC = sys.argv[1]
-except IndexError as err:
-    print("IndexError - Brak ścieżki do pliku źródłowego: ", err)
-    sys.exit()
+# try:
+#     PATH_SRC = sys.argv[1]
+# except IndexError as err:
+#     print("IndexError - Brak ścieżki do pliku źródłowego: ", err)
+#     sys.exit()
 
 
 def get_src_readings():
-    pass
+    path = path_to_readings.read()
+
+    print("\n-----------------------------")
+    print(f"|{path.strip()}|")
+    print("\n-----------------------------")
 
 
 def main():
-    # declare variable for system arguments list
-    sys_args = sys.argv
-    print(sys_args)
-    # remove Python script name from args list
-    sys_args.pop(0)
-    print(sys_args)
-    #path_src = sys_args[1]
+    get_src_readings()
 
 
 # have interpreter call the main() func
