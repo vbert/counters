@@ -43,12 +43,29 @@ def main():
     #     print(f"{k} --> {v}")
     src_path = conf.get_readings_path()
     src_file = 'Wielewska-18-08-28 07m11s57 format.txt'
-    #
-    data = open(os.path.join(src_path, src_file), 'r', encoding='ISO-8859-1')
-    #readings = data.read()
-    #line = data.readline()
 
-    #result = open(os.path.join(src_path, 'result.sod'), 'w', encoding='UTF8')
+    # data = tools.get_readings(src_path, src_file)
+    data = open(os.path.join(src_path, src_file), 'r', encoding='UTF-16LE')
+    line = data.readline()
+
+    print('------------------[1]------------------')
+    print(line)
+    print('------------------[2]------------------')
+    separator = data.readline()
+    print(len(separator))
+    print(separator)
+    print('------------------[3]------------------')
+    print(data.readline())
+    print(data)
+
+    #
+    # tools.decode_readings(src_path, src_file)
+    #
+    # data = open(os.path.join(src_path, src_file), 'r', encoding='ISO-8859-1')
+    # readings = data.read()
+    # line = data.readline()
+
+    # result = open(os.path.join(src_path, 'result.sod'), 'w', encoding='UTF8')
     # result.write(line.strip())
     # result.close()
 
@@ -60,21 +77,21 @@ def main():
     #     return path.strip()
     # else:
     #     return False
-    result = {}
-    num = 0
-    for line in data:
-        num += 1
-        result[f"row-{num}"] = line
-        # print(line.strip())
-        # print(f"{'-'*20}")
+    # result = {}
+    # num = 0
+    # for line in data:
+    #     num += 1
+    #     result[f"row-{num}"] = line
+    #     # print(line.strip())
+    #     # print(f"{'-'*20}")
 
-    print(f"{result['row-1']}")
-    print(f"{'-'*50}")
-    print(f"{result['row-2']}")
-    print(f"{'-'*50}")
-    print(f"{result['row-5']}")
+    # print(f"{result['row-1']}")
+    # print(f"{'-'*50}")
+    # print(f"{result['row-2']}")
+    # print(f"{'-'*50}")
+    # print(f"{result['row-5']}")
 
-    print(f"{'-'*50}")
+    # print(f"{'-'*50}")
 
 
 # have interpreter call the main() func
