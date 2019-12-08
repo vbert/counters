@@ -3,34 +3,27 @@
 # 2019-11
 import os
 
-CONFIG_PATH = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_COUNTERS = 'liczniki.dat'
-DEFAULT_READINGS = 'sciezka.dat'
+DEFAULT_PATHS = 'sciezki.dat'
+TMP_INPUT_FILE = 'tmp-src-utf8.txt'
 
+INPUT_DELIMITER = '|'
+INPUT_COLUMNS = ['Data', 'Wejście dod 1', 'Energia', 'Adres']
+COL_DATE_READING = 0
+COL_METER_READING_1 = 1
+COL_METER_READING_2 = 2
+COL_ADDRESS = 3
+OUTPUT_FILE = 'notesrecrs.sod'
+OUTPUT_TPL_START = 'START ODCZYTY;'
+OUTPUT_TPL_ROW = ':{place_index},1,{date_reading},2,,,,1,{meter_reading_1},0,2,{meter_reading_2},0;'
+OUTPUT_TPL_END = 'KONIEC ODCZYTY;'
 
-def get_readings_path(file_name=DEFAULT_READINGS):
-    full_path = os.path.join(CONFIG_PATH, file_name)
-    if os.path.isfile(full_path):
-        file = open(full_path, 'r')
-        path = file.readline()
-        return path.strip()
-    else:
-        return False
-
-
-def get_counters_ids(file_name=DEFAULT_COUNTERS):
-    full_path = os.path.join(CONFIG_PATH, file_name)
-    if os.path.isfile(full_path):
-        import csv
-        data = open(full_path, 'r', encoding='ISO-8859-1')
-        reader = csv.reader(data, delimiter=';')
-        result = {}
-        for col in reader:
-            result[col[0]] = col[1]
-        return result
-    else:
-        return False
+'''
+START ODCZYTY
+:Indeks lokalu,cyfra rodzaju odczytu,data odczytu,ilość odczytów,,,,cyfra porządkowa,stan licznika 1,numer licznika 1,cyfra porządkowa,stan licznika 2,numer licznika2;
+KONIEC ODCZYTY
+'''
 
 
 def test():
-    print('Read configs files ...')
+    print('Read configs file ...')
