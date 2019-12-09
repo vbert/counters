@@ -41,8 +41,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        self.model = ReadingsModel()
-        self.readingsView.setModel(self.model)
+        # self.model = ReadingsModel()
+        # self.readingsView.setModel(self.model)
+        # Close button
         self.closeButton.pressed.connect(self.close_app)
 
     def close_app(self):
