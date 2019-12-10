@@ -15,7 +15,7 @@ except ImportError:
 
 def main():
     #print(f"--[DEBUG]{'-'*41}")
-    tools.run_app()
+    tools.run()
 
 
 # have interpreter call the main() func

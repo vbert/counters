@@ -17,7 +17,7 @@ OUTPUT_FILE = 'notesrecrs.sod'
 OUTPUT_TPL_START = 'START ODCZYTY;'
 OUTPUT_TPL_ROW = ':{place_index},1,{date_reading},2,,,,1,{meter_reading_1},0,2,{meter_reading_2},0;'
 OUTPUT_TPL_END = 'KONIEC ODCZYTY;'
-QT_CREATOR_FILE = 'appwindow.ui'
+APP_WINDOW_FILE = 'appwindow.ui'
 
 '''
 START ODCZYTY

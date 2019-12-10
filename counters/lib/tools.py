@@ -3,7 +3,10 @@
 # 2019-11
 import os
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5 import uic
+from PyQt5 import QtGui
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
 
 APP_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 CONFIG_PATH = os.path.join(APP_PATH, 'config')
@@ -11,50 +14,54 @@ LIB_PATH = os.path.join(APP_PATH, 'lib')
 RES_PATH = os.path.join(APP_PATH, 'resources')
 TMP_PATH = os.path.join(APP_PATH, 'tmp')
 
-
 try:
     import config.config as conf
 except ImportError:
     sys.path.append(CONFIG_PATH)
     import config.config as conf
 
-Ui_MainWindow, QtBaseClass = uic.loadUiType(
-    os.path.join(RES_PATH, conf.QT_CREATOR_FILE))
-
-
-class ReadingsModel(QtCore.QAbstractListModel):
-    def __init_(self, *args, readings=None, **kwargs):
-        super(ReadingsModel, self).__init__(*args, **kwargs)
-        self.readings = readings or ['one', 'two']
-
-    def data(self, index, role):
-        if role == QtCore.Qt.DisplayRole:
-            file = self.readings[index.row()]
-            return file
-
-    # def rowCount(self, index):
-    #     return len(self.readings)
+ui_path = os.path.join(RES_PATH, conf.APP_WINDOW_FILE)
+Ui_MainWindow, QtBaseClass = uic.loadUiType(ui_path)
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        # self.model = ReadingsModel()
-        # self.readingsView.setModel(self.model)
+
+        self.file_index = -1
+
+        # Readings files view
+        readings = ['Styczeń 2019.txt', 'Luty 2019.txt', 'Marzec 2019.txt', 'Kwiecień 2019 dodatek.txt']
+        model = QtGui.QStandardItemModel()
+        for reading in readings:
+            model.appendRow(QtGui.QStandardItem(reading))
+        self.readingsView.setModel(model)
+        self.readingsView.clicked.connect(self.slot_clicked_item)
+
+        # Export button
+        file_name = readings[self.file_index]
+        self.exportButton.clicked.connect(lambda: test(self.file_index))
+
         # Close button
-        self.closeButton.pressed.connect(self.close_app)
+        self.closeButton.clicked.connect(self.close_app)
 
     def close_app(self):
         self.close()
 
+    @QtCore.pyqtSlot(QtCore.QModelIndex)
+    def slot_clicked_item(self, QModelIndex):
+        #self.stk_w.setCurrentIndex(QModelIndex.row())
+        self.file_index = QModelIndex.row()
 
-def run_app():
+
+def run():
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    app.exec_()
+    sys.exit(app.exec_())
 
 
 def run_app_2():
@@ -175,5 +182,7 @@ def format_meter(meter_str):
     return float(meter_str.replace(',', '.')[:-4])
 
 
-def test():
+def test(value):
     print('Read tools file ...')
+    print('Przekazana wartość: {val}'.format(val=value))
+    return True
