@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
-    <height>535</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="font">
@@ -35,13 +35,39 @@
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <family>Sans Serif</family>
+          <pointsize>11</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Odczyty liczników:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="readingsView"/>
+       <widget class="QListView" name="readingsView">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="autoScrollMargin">
+         <number>20</number>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <property name="selectionRectVisible">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -56,6 +82,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="exportButton">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Eksportuj</string>
         </property>
@@ -76,6 +107,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="closeButton">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Zamknij</string>
         </property>
@@ -90,7 +126,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>533</width>
+     <width>500</width>
      <height>23</height>
     </rect>
    </property>

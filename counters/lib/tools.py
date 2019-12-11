@@ -25,7 +25,7 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(ui_path)
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    
+
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -34,16 +34,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_index = -1
 
         # Readings files view
-        readings = ['Styczeń 2019.txt', 'Luty 2019.txt', 'Marzec 2019.txt', 'Kwiecień 2019 dodatek.txt']
-        model = QtGui.QStandardItemModel()
+        readings = ['Styczeń 2019.txt', 'Luty 2019.txt',
+                    'Marzec 2019.txt', 'Kwiecień 2019 dodatek.txt']
+        self.model = QtGui.QStandardItemModel()
         for reading in readings:
-            model.appendRow(QtGui.QStandardItem(reading))
-        self.readingsView.setModel(model)
+            self.model.appendRow(QtGui.QStandardItem(reading))
+        self.readingsView.setModel(self.model)
         self.readingsView.clicked.connect(self.slot_clicked_item)
 
         # Export button
         file_name = readings[self.file_index]
-        self.exportButton.clicked.connect(lambda: test(self.file_index))
+        self.exportButton.clicked.connect(lambda: test(file_name))
 
         # Close button
         self.closeButton.clicked.connect(self.close_app)
@@ -53,7 +54,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     @QtCore.pyqtSlot(QtCore.QModelIndex)
     def slot_clicked_item(self, QModelIndex):
-        #self.stk_w.setCurrentIndex(QModelIndex.row())
+        # self.stk_w.setCurrentIndex(QModelIndex.row())
         self.file_index = QModelIndex.row()
 
 
