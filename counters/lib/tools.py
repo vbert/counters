@@ -34,20 +34,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_index = -1
 
         # Readings files view
-        readings = ['Styczeń 2019.txt', 'Luty 2019.txt',
-                    'Marzec 2019.txt', 'Kwiecień 2019 dodatek.txt']
+        self.readings = get_readings_files()
+        # ['Styczeń 2019.txt', 'Luty 2019.txt', 'Marzec 2019.txt', 'Kwiecień 2019 dodatek.txt']
         self.model = QtGui.QStandardItemModel()
-        for reading in readings:
+        for reading in self.readings:
             self.model.appendRow(QtGui.QStandardItem(reading))
         self.readingsView.setModel(self.model)
         self.readingsView.clicked.connect(self.slot_clicked_item)
 
         # Export button
-        file_name = readings[self.file_index]
-        self.exportButton.clicked.connect(lambda: test(file_name))
+        self.file_name = self.readings[self.file_index]
+        self.exportButton.clicked.connect(self.convert)
+        #lambda: run_convert(self.file_name)
 
         # Close button
         self.closeButton.clicked.connect(self.close_app)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+
 
     def close_app(self):
         self.close()
@@ -57,6 +60,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # self.stk_w.setCurrentIndex(QModelIndex.row())
         self.file_index = QModelIndex.row()
 
+    @QtCore.pyqtSlot()
+    def convert(self):
+        response = run_convert(self.file_name)
+        self.statusBar.showMessage(response)
+
 
 def run():
     app = QtWidgets.QApplication(sys.argv)
@@ -65,9 +73,9 @@ def run():
     sys.exit(app.exec_())
 
 
-def run_app_2():
+def run_convert(src_file):
+    #src_file = 'Wielewska-18-08-28 07m11s57 format.txt'
     src_path = get_readings_path()
-    src_file = 'Wielewska-18-08-28 07m11s57 format.txt'
     input_file = os.path.join(src_path, src_file)
     input_file_utf8 = os.path.join(TMP_PATH, conf.TMP_INPUT_FILE)
     decode_readings(input_file, input_file_utf8)
@@ -81,8 +89,10 @@ def run_app_2():
         contents = "\n".join(contents)
         out.write(contents)
         out.close()
+        message = 'Konwersja zakończona pomyślnie.'
     else:
-        pass
+        message = 'Konwersja nie powiodła się.'
+    return message
 
 
 def get_paths(file_name):
@@ -98,6 +108,11 @@ def get_readings_path(file_name=conf.DEFAULT_PATHS):
     paths = get_paths(file_name)
     return paths[0].strip()
 
+
+def get_readings_files():
+    readings_path = get_readings_path()
+    files_list = [f for f in os.listdir(readings_path) if os.path.isfile(os.path.join(readings_path, f)) and  f.endswith('.txt')]
+    return files_list
 
 def get_output_path(file_name=conf.DEFAULT_PATHS):
     paths = get_paths(file_name)
