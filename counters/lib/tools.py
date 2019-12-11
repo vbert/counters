@@ -112,7 +112,7 @@ def get_readings_path(file_name=conf.DEFAULT_PATHS):
 def get_readings_files():
     readings_path = get_readings_path()
     files_list = [f for f in os.listdir(readings_path) if os.path.isfile(os.path.join(readings_path, f)) and  f.endswith('.txt')]
-    return files_list
+    return sorted(files_list, key=str.casefold, reverse=True)
 
 def get_output_path(file_name=conf.DEFAULT_PATHS):
     paths = get_paths(file_name)
@@ -142,7 +142,7 @@ def get_readings(file):
     if os.path.isfile(file):
         import csv
         readings = []
-        with open(file) as csvfile:
+        with open(file, encoding='UTF-8') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=conf.INPUT_DELIMITER)
             for line in reader:
                 row = {}
