@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>calculator-24.png</normaloff>calculator-24.png</iconset>
+    <normaloff>calculator.svg</normaloff>calculator.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
