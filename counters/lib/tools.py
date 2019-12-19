@@ -51,7 +51,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.closeButton.clicked.connect(self.close_app)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 
-
     def close_app(self):
         self.close()
 
@@ -79,6 +78,14 @@ def run_convert(src_file):
     input_file = os.path.join(src_path, src_file)
     input_file_utf8 = os.path.join(TMP_PATH, conf.TMP_INPUT_FILE)
     decode_readings(input_file, input_file_utf8)
+
+    # generate csv file for future analysis
+    print(src_file)
+    csv_out_name = os.path.splitext(src_file)[0]
+    print(csv_out_name)
+    csv_out_file_name = '.'.join([os.path.splitext(src_file)[0], 'csv'])
+    print(csv_out_file_name)
+
     readings = get_readings(input_file_utf8)
     if readings:
         contents = convert(readings)
@@ -111,8 +118,10 @@ def get_readings_path(file_name=conf.DEFAULT_PATHS):
 
 def get_readings_files():
     readings_path = get_readings_path()
-    files_list = [f for f in os.listdir(readings_path) if os.path.isfile(os.path.join(readings_path, f)) and  f.endswith('.txt')]
+    files_list = [f for f in os.listdir(readings_path) if os.path.isfile(
+        os.path.join(readings_path, f)) and f.endswith('.txt')]
     return sorted(files_list, key=str.casefold, reverse=True)
+
 
 def get_output_path(file_name=conf.DEFAULT_PATHS):
     paths = get_paths(file_name)

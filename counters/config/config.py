@@ -19,12 +19,6 @@ OUTPUT_TPL_ROW = ':{place_index},1,{date_reading},2,,,,1,{meter_reading_1},0,2,{
 OUTPUT_TPL_END = 'KONIEC ODCZYTY;'
 APP_WINDOW_FILE = 'appwindow.ui'
 
-'''
-START ODCZYTY
-:Indeks lokalu,cyfra rodzaju odczytu,data odczytu,ilość odczytów,,,,cyfra porządkowa,stan licznika 1,numer licznika 1,cyfra porządkowa,stan licznika 2,numer licznika2;
-KONIEC ODCZYTY
-'''
-
 
 def test():
     print('Read configs file ...')

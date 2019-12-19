@@ -24,3 +24,22 @@ https://nsis.sourceforge.io/Main_Page
 8. Run command: `venv\Scripts\python.exe counters\counters.py`
 
    
+## Install
+1. Rozpakuj plik: counters.zip na c:\
+
+2. Struktura po rozpakowaniu
+C:\counters
+    |-> counters
+    |   |-> config
+    |   |   |-> liczniki.dat
+    |   |   |-> sciezki.dat - ścieżki do plików odczytów i wyniku
+    |   |-> lib
+    |   |-> resources
+    |   |-> tmp
+    |-> test
+    |-> venv
+    |-> Konwenter odczytów.lnk
+
+3. W pliku sciezki.dat podaj odpowiednie ściezki
+
+4. Skrót: Konwenter odczytów.lnk skopiuj na pulpit
