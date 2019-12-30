@@ -105,3 +105,11 @@ venv.bak/
 
 # Visual Studio Code
 .vscode/
+
+# This project
+counters/config/sciezki.dat
+counters/tmp/*.txt
+test/data/excel/*.csv
+test/data/*.txt
+test/data/*.xls
+test/result/*.sod
