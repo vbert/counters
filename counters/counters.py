@@ -14,7 +14,6 @@ except ImportError:
 
 
 def main():
-    #print(f"--[DEBUG]{'-'*41}")
     tools.run()
 
 

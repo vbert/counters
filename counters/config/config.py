@@ -8,11 +8,14 @@ APP_WINDOW_FILE = 'appwindow.ui'
 DEFAULT_COUNTERS = 'liczniki.dat'
 DEFAULT_PATHS = 'sciezki.dat'
 TMP_INPUT_FILE = 'tmp-src-utf8.txt'
+DELIMITER_INPUT_FILE = '|'
+
+CONVERSION_TYPES = ['rental', 'analysis',]
 
 # Conversion parameters
 CONVERSION_PARAMETERS = {
     'rental': {
-        'delimiter': '|',
+        'delimiter': DELIMITER_INPUT_FILE,
         'columns': {
             'names': ['Data', 'Wejście dod 1', 'Energia', 'Adres'],
             'indexes': {
@@ -31,7 +34,7 @@ CONVERSION_PARAMETERS = {
         }
     },
     'analysis': {
-        'delimiter': '|',
+        'delimiter': DELIMITER_INPUT_FILE,
         'columns': {
             'names': ['Adres', 'Data', 'Energia', 'Wejście dod 1', 'Wejście dod 2', 'Wejście dod 3', 'Wejście dod 4'],
             'indexes': {
@@ -48,7 +51,7 @@ CONVERSION_PARAMETERS = {
         'template': {
             'start': 'Adres,Data,Energia,Wejście dod 1,Wejście dod 2,Wejście dod 3,Wejście dod 4',
             'address_as': 'string',
-            'row': '{place_address},{date_reading},{energy},{meter_reading_1},{meter_reading_2},{meter_reading_3},{meter_reading_4}',
+            'row': '{place_address};{date_reading};{energy};{meter_reading_1};{meter_reading_2};{meter_reading_3};{meter_reading_4}',
             'end': ''
         }
     },
