@@ -74,18 +74,19 @@ def run_convert(src_file):
     input_path = get_readings_path()
     output_path = get_output_path()
     input_file = os.path.join(input_path, src_file)
-    input_file_utf8 = os.path.join(TMP_PATH, conf.TMP_INPUT_FILE)
-    decode_readings(input_file, input_file_utf8)
 
     response_convert = {}
     for conversion in conf.CONVERSION_TYPES:
-        response_convert[conversion] = globals()[f"convert_for_{conversion}"](src_file, input_file_utf8, input_path, output_path, conversion)
+        input_file_utf8 = os.path.join(TMP_PATH, conf.TMP_INPUT_FILE)
+        decode_readings(input_file, input_file_utf8)
+        response_convert[conversion] = globals()[f"convert_for_{conversion}"](
+            src_file, input_file_utf8, input_path, output_path, conversion)
 
     errors = 0
     for conversion in conf.CONVERSION_TYPES:
         if response_convert[conversion] == False:
             errors += 1
-    
+
     if errors == 0:
         message = 'Konwersja zakończona pomyślnie.'
     else:
@@ -97,7 +98,7 @@ def convert_for_rental(src_file, input_file_utf8, input_path, output_path, conve
     param = conf.CONVERSION_PARAMETERS[conversion]
     readings = get_readings(input_file_utf8, param['columns']['names'])
     output_file = os.path.join(output_path, param['file_name'])
-    
+
     contents = []
     contents.append(param['template']['start'])
     places_ids = get_places_ids()
@@ -128,11 +129,11 @@ def convert_for_rental(src_file, input_file_utf8, input_path, output_path, conve
 def convert_for_analysis(src_file, input_file_utf8, input_path, output_path, conversion):
     param = conf.CONVERSION_PARAMETERS[conversion]
     readings = get_readings(input_file_utf8, param['columns']['names'])
-    output_file = os.path.join(input_path, param['part_path'], '.'.join([os.path.splitext(src_file)[0], 'csv']))
+    output_file = os.path.join(input_path, param['part_path'], '.'.join([
+                               os.path.splitext(src_file)[0], 'csv']))
 
     contents = []
     contents.append(param['template']['start'])
-    places_ids = get_places_ids()
     address_col = param['columns']['indexes']['address']
     date_col = param['columns']['indexes']['date']
     energy_col = param['columns']['indexes']['energy']
@@ -142,19 +143,18 @@ def convert_for_analysis(src_file, input_file_utf8, input_path, output_path, con
     reading_4_col = param['columns']['indexes']['reading_4']
     for line in readings:
         address = line[param['columns']['names'][address_col]]
-        if address in places_ids:
-            args = {
-                'place_address': address,
-                'date_reading': format_date(line[param['columns']['names'][date_col]], '%Y-%m-%d'),
-                'energy': format_meter(line[param['columns']['names'][energy_col]]),
-                'meter_reading_1': format_meter(line[param['columns']['names'][reading_1_col]], False),
-                'meter_reading_2': format_meter(line[param['columns']['names'][reading_2_col]], False),
-                'meter_reading_3': format_meter(line[param['columns']['names'][reading_3_col]], False),
-                'meter_reading_4': format_meter(line[param['columns']['names'][reading_4_col]], False)
-            }
-            tpl = param['template']['row']
-            row = tpl.format(**args)
-            contents.append(row)
+        args = {
+            'place_address': address,
+            'date_reading': format_date(line[param['columns']['names'][date_col]], '%Y-%m-%d'),
+            'energy': format_meter(line[param['columns']['names'][energy_col]], False),
+            'meter_reading_1': format_meter(line[param['columns']['names'][reading_1_col]], False),
+            'meter_reading_2': format_meter(line[param['columns']['names'][reading_2_col]], False),
+            'meter_reading_3': format_meter(line[param['columns']['names'][reading_3_col]], False),
+            'meter_reading_4': format_meter(line[param['columns']['names'][reading_4_col]], False)
+        }
+        tpl = param['template']['row']
+        row = tpl.format(**args)
+        contents.append(row)
     contents.append("\n")
 
     out = open(output_file, mode='w', encoding='UTF-8')
@@ -219,7 +219,8 @@ def get_readings(file, columns_list):
         import csv
         readings = []
         with open(file, encoding='UTF-8') as csvfile:
-            reader = csv.DictReader(csvfile, delimiter=conf.DELIMITER_INPUT_FILE)
+            reader = csv.DictReader(
+                csvfile, delimiter=conf.DELIMITER_INPUT_FILE)
             for line in reader:
                 row = {}
                 for col in columns_list:
