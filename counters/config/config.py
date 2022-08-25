@@ -1,6 +1,15 @@
-# -*- coding: utf-8 -*-
-# © by vbert (wsobczak@gmail.com)
-# 2019-11
+# -*- coding:utf-8 -*-
+"""
+Project: config
+File: /config.py
+File Created: 2020-10-26, 20:25:58
+Author: Wojciech Sobczak (wsobczak@gmail.com)
+-----
+Last Modified: 2022-08-25, 13:56:52
+Modified By: Wojciech Sobczak (wsobczak@gmail.com)
+-----
+Copyright © 2021 - 2022 by vbert
+"""
 import os
 
 APP_WINDOW_FILE = 'appwindow.ui'
@@ -56,31 +65,6 @@ CONVERSION_PARAMETERS = {
         }
     },
 }
-# Rental
-# INPUT_RENTAL_DELIMITER = '|'
-# INPUT_RENTAL_COLUMNS = ['Data', 'Wejście dod 1', 'Energia', 'Adres']
-# COL_RENTAL_DATE_READING = 0
-# COL_RENTAL_METER_READING_1 = 1
-# COL_RENTAL_METER_READING_2 = 2
-# COL_RENTAL_ADDRESS = 3
-# OUTPUT_RENTAL_FILE = 'notesrecrs.sod'
-# OUTPUT_RENTAL_TPL_START = 'START ODCZYTY;'
-# OUTPUT_RENTAL_TPL_ROW = ':{place_index},1,{date_reading},2,,,,1,{meter_reading_1},0,2,{meter_reading_2},0;'
-# OUTPUT_RENTAL_TPL_END = 'KONIEC ODCZYTY;'
-
-# Analysis
-# INPUT_ANALYSIS_DELIMITER = '|'
-# INPUT_ANALYSIS_COLUMNS = ['Adres', 'Data', 'Energia', 'Wejście dod 1', 'Wejście dod 2', 'Wejście dod 3', 'Wejście dod 4']
-# COL_ANALYSIS_ADDRESS = 0
-# COL_ANALYSIS_DATE_READING = 1
-# COL_ANALYSIS_ENERGY = 2
-# COL_ANALYSIS_METER_READING_1 = 3
-# COL_ANALYSIS_METER_READING_2 = 4
-# COL_ANALYSIS_METER_READING_3 = 5
-# COL_ANALYSIS_METER_READING_4 = 6
-# OUTPUT_ANALYSIS_PART_PATH = 'excel'
-# OUTPUT_ANALYSIS_TPL_START = 'Adres,Data,Energia,Wejście dod 1,Wejście dod 2,Wejście dod 3,Wejście dod 4'
-# OUTPUT_ANALYSIS_TPL_ROW = '{place_address},{date_reading},{energy},{meter_reading_1},{meter_reading_2},{meter_reading_3},{meter_reading_4}'
 
 
 def test():

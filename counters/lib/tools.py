@@ -1,6 +1,15 @@
-# -*- coding: utf-8 -*-
-# © by vbert (wsobczak@gmail.com)
-# 2019-11
+# -*- coding:utf-8 -*-
+"""
+Project: lib
+File: /tools.py
+File Created: 2020-10-26, 20:25:58
+Author: Wojciech Sobczak (wsobczak@gmail.com)
+-----
+Last Modified: 2022-08-25, 13:55:46
+Modified By: Wojciech Sobczak (wsobczak@gmail.com)
+-----
+Copyright © 2021 - 2022 by vbert
+"""
 import os
 import sys
 from PyQt5 import uic
@@ -129,8 +138,7 @@ def convert_for_rental(src_file, input_file_utf8, input_path, output_path, conve
 def convert_for_analysis(src_file, input_file_utf8, input_path, output_path, conversion):
     param = conf.CONVERSION_PARAMETERS[conversion]
     readings = get_readings(input_file_utf8, param['columns']['names'])
-    output_file = os.path.join(input_path, param['part_path'], '.'.join([
-                               os.path.splitext(src_file)[0], 'csv']))
+    output_file = os.path.join(input_path, param['part_path'], '.'.join([os.path.splitext(src_file)[0], 'csv']))
 
     contents = []
     contents.append(param['template']['start'])
@@ -199,10 +207,19 @@ def decode_readings(input_file, output_file):
     contents = list(map(strip_csv_row, contents))
 
     tmp_contents = []
+
+    lp = 1
+
     for row in contents:
         row = list(map(str.strip, row.split(conf.DELIMITER_INPUT_FILE)))
-        if row[1] != 'NULL':
-            tmp_contents.append(conf.DELIMITER_INPUT_FILE.join(row))
+
+        print(f'# {lp}')
+        print(row)
+        print('-'*30)
+        lp += 1
+
+        # if row[1] != 'NULL':
+        tmp_contents.append(conf.DELIMITER_INPUT_FILE.join(row))
 
     out = open(output_file, mode='w', encoding='UTF-8')
     out.write("\n".join(tmp_contents))
@@ -247,15 +264,21 @@ def get_places_ids(file_name=conf.DEFAULT_COUNTERS):
 
 def format_date(date_str, format_out='%d/%m/%Y'):
     from datetime import datetime
-    dt = datetime.strptime(date_str, '%y-%m-%d')
-    return dt.strftime(format_out)
+    if date_str == '':
+        return ''
+    else:
+        dt = datetime.strptime(date_str, '%y-%m-%d')
+        return dt.strftime(format_out)
 
 
 def format_meter(meter_str, separator=True):
-    if separator == True:
-        return float(meter_str.replace(',', '.')[:-4])
+    if meter_str == '':
+        return ''
     else:
-        return meter_str[:-4]
+        if separator == True:
+            return float(meter_str.replace(',', '.')[:-4])
+        else:
+            return meter_str[:-4]
 
 
 def test(value):
