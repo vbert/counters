@@ -5,7 +5,7 @@ File: /tools.py
 File Created: 2020-10-26, 20:25:58
 Author: Wojciech Sobczak (wsobczak@gmail.com)
 -----
-Last Modified: 2022-08-25, 13:55:46
+Last Modified: 2022-08-25, 14:17:17
 Modified By: Wojciech Sobczak (wsobczak@gmail.com)
 -----
 Copyright © 2021 - 2022 by vbert
@@ -207,17 +207,8 @@ def decode_readings(input_file, output_file):
     contents = list(map(strip_csv_row, contents))
 
     tmp_contents = []
-
-    lp = 1
-
     for row in contents:
         row = list(map(str.strip, row.split(conf.DELIMITER_INPUT_FILE)))
-
-        print(f'# {lp}')
-        print(row)
-        print('-'*30)
-        lp += 1
-
         # if row[1] != 'NULL':
         tmp_contents.append(conf.DELIMITER_INPUT_FILE.join(row))
 
