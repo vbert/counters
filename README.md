@@ -28,6 +28,7 @@ https://nsis.sourceforge.io/Main_Page
 1. Rozpakuj plik: counters.zip na c:\
 
 2. Struktura po rozpakowaniu
+```bash
 C:\counters
     |-> counters
     |   |-> config
@@ -39,6 +40,7 @@ C:\counters
     |-> test
     |-> venv
     |-> Konwenter odczytów.lnk
+```
 
 3. W pliku sciezki.dat podaj odpowiednie ściezki
 
