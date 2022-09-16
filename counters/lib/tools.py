@@ -5,7 +5,7 @@ File: /tools.py
 File Created: 2020-10-26, 20:25:58
 Author: Wojciech Sobczak (wsobczak@gmail.com)
 -----
-Last Modified: 2022-08-25, 14:17:17
+Last Modified: 2022-09-16, 9:57:42
 Modified By: Wojciech Sobczak (wsobczak@gmail.com)
 -----
 Copyright © 2021 - 2022 by vbert
@@ -97,9 +97,9 @@ def run_convert(src_file):
             errors += 1
 
     if errors == 0:
-        message = 'Konwersja zakończona pomyślnie.'
+        message = f"Konwersja pliku [{src_file}] OK!"
     else:
-        message = 'Konwersja nie powiodła się.'
+        message = f"Błąd przy konwersji pliku [{src_file}] :("
     return message
 
 
@@ -115,12 +115,17 @@ def convert_for_rental(src_file, input_file_utf8, input_path, output_path, conve
     reading_1_col = param['columns']['indexes']['reading_1']
     reading_2_col = param['columns']['indexes']['reading_2']
     address_col = param['columns']['indexes']['address']
+
+    date_default = ''
     for line in readings:
+        if len(line[param['columns']['names'][date_col]]) > 0:
+            date_default = line[param['columns']['names'][date_col]]
+
         address = line[param['columns']['names'][address_col]]
         if address in places_ids:
             args = {
                 'place_index': places_ids[address],
-                'date_reading': format_date(line[param['columns']['names'][date_col]]),
+                'date_reading': format_date(line[param['columns']['names'][date_col]], '%d/%m/%Y', date_default),
                 'meter_reading_1': format_meter(line[param['columns']['names'][reading_1_col]]),
                 'meter_reading_2': format_meter(line[param['columns']['names'][reading_2_col]])
             }
@@ -253,23 +258,22 @@ def get_places_ids(file_name=conf.DEFAULT_COUNTERS):
         return False
 
 
-def format_date(date_str, format_out='%d/%m/%Y'):
+def format_date(date_str, format_out='%d/%m/%Y', date_default='20-01-01'):
     from datetime import datetime
     if date_str == '':
-        return ''
+        dt = datetime.strptime(date_default, '%y-%m-%d')
     else:
         dt = datetime.strptime(date_str, '%y-%m-%d')
-        return dt.strftime(format_out)
+    return dt.strftime(format_out)
 
 
 def format_meter(meter_str, separator=True):
     if meter_str == '':
-        return ''
+        meter_str = '0.000'
+    if separator == True:
+        return float(meter_str.replace(',', '.')[:-4])
     else:
-        if separator == True:
-            return float(meter_str.replace(',', '.')[:-4])
-        else:
-            return meter_str[:-4]
+        return meter_str[:-4]
 
 
 def test(value):
@@ -285,5 +289,5 @@ def print_debug(*args):
             print(a)
             print(f"{'-'*50}")
     else:
-        print('     Brak argumentów')
+        print('Brak argumentów')
     print(f"{'='*43}[END]==")
